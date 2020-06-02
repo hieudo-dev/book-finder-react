@@ -1,12 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className="container mx-auto justify-center">
+      <header className="p-4 text-center">
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>

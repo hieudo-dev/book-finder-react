@@ -13,10 +13,12 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "npm run watch:css && react-scripts start",
+    "build": "npm run build:css && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:css": "postcss src/assets/index.css -o src/assets/tailwind.css",
+    "watch:css": "postcss src/assets/index.css -o src/assets/tailwind.css"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,9 +36,11 @@
     ]
   },
   "devDependencies": {
+    "autoprefixer": "^9.8.0",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.20.0",
     "postcss": "^7.0.31",
+    "postcss-cli": "^7.1.1",
     "prettier": "^2.0.5",
     "tailwindcss": "^1.4.6"
   }
