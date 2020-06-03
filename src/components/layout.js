@@ -4,8 +4,8 @@ import { MenuIcon, CloseIcon } from '../icons';
 const NavLink = ({ link, text }) => (
   <a
     href={link}
-    className="text-white pt-3 pb-2 px-2 sm:mx-2 border-b-2 border-gray-900
-     hover:bg-gray-100 hover:text-gray-900 hover:border-gray-600"
+    className="text-white py-3 px-2 sm:mx-2 border-b-2 border-gray-800 
+    hover:bg-gray-300 hover:text-black hover:border-blue-400"
   >
     {text}
   </a>
@@ -38,7 +38,9 @@ const Layout = ({ children }) => (
         </div>
       </nav>
     </header>
-    <main>{children}</main>
+    <main className="flex justify-center p-8 sm:pt-16 w-full h-screen bg-gray-800">
+      {children}
+    </main>
     <footer></footer>
   </>
 );
