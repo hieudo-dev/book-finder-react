@@ -4,8 +4,9 @@ import { MenuIcon, CloseIcon } from '../icons';
 const NavLink = ({ link, text }) => (
   <a
     href={link}
-    className="text-white py-3 px-2 sm:mx-2 border-b-2 border-gray-800 
-    hover:bg-gray-300 hover:text-black hover:border-blue-400"
+    className="text-white p-3 border-b-2 border-gray-800 
+    hover:bg-gray-300 hover:text-black hover:border-blue-400
+    transition-colors duration-300"
   >
     {text}
   </a>
@@ -21,11 +22,8 @@ const Layout = ({ children }) => (
               <a href="#">Book Finder</a>
             </div>
             <div className="sm:hidden">
-              <button
-                type="button"
-                className="block text-gray-800 hover:text-gray-700 focus:text-gray-700 focus:outline-none"
-              >
-                <MenuIcon className="w-4 h-4" />
+              <button type="button" className="focus:outline-none">
+                <MenuIcon className="w-4 h-4" fill="white" />
                 {/* <CloseIcon className="w-4 h-4" /> */}
               </button>
             </div>
@@ -38,7 +36,7 @@ const Layout = ({ children }) => (
         </div>
       </nav>
     </header>
-    <main className="flex justify-center p-8 sm:pt-16 w-full h-screen bg-gray-800">
+    <main className="px-4 md:px-12 pt-12 sm:pt-16 w-full min-h-screen bg-gray-800">
       {children}
     </main>
     <footer></footer>
