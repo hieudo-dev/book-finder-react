@@ -13,7 +13,7 @@ const NavLink = ({ link, text }) => (
 );
 
 const Layout = ({ children }) => (
-  <>
+  <div className="min-h-screen bg-gray-800">
     <header>
       <nav className="bg-gray-900 shadow-md">
         <div className="sm:flex items-center justify-between px-4 py-1 sm:pl-8 sm:pr-4">
@@ -31,16 +31,13 @@ const Layout = ({ children }) => (
           <div className="flex flex-col sm:flex-row hidden sm:block -mx-2">
             <NavLink href="#" text="Home" />
             <NavLink href="#" text="About" />
-            <NavLink href="#" text="Contact" />
           </div>
         </div>
       </nav>
     </header>
-    <main className="px-4 md:px-12 pt-12 sm:pt-16 w-full min-h-screen bg-gray-800">
-      {children}
-    </main>
+    <main className="px-4 md:px-12 py-12 w-full h-full">{children}</main>
     <footer></footer>
-  </>
+  </div>
 );
 
 export default Layout;
