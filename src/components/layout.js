@@ -5,7 +5,7 @@ const NavLink = ({ link, text }) => (
   <a
     href={link}
     className="text-white p-3 border-b-2 border-gray-800 
-    hover:bg-gray-300 hover:text-black hover:border-blue-400
+    hover:bg-gray-700 hover:border-blue-400
     transition-colors duration-300"
   >
     {text}
@@ -23,7 +23,7 @@ const Layout = ({ children }) => (
             </div>
             <div className="sm:hidden">
               <button type="button" className="focus:outline-none">
-                <MenuIcon className="w-4 h-4" fill="white" />
+                <MenuIcon className="w-4 h-4 fill-current text-white" />
                 {/* <CloseIcon className="w-4 h-4" /> */}
               </button>
             </div>
