@@ -104,7 +104,13 @@ const BookList = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-3 pt-12">
         {books.length !== 0 &&
           books.map((book) => (
-            <motion.div key={book.id} positionTransition>
+            <motion.div
+              key={book.id}
+              positionTransition
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+            >
               <BookSummary
                 title={book.title}
                 authors={book.authors}
