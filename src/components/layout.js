@@ -1,15 +1,16 @@
 import React from 'react';
 import { MenuIcon, CloseIcon } from '../icons';
+import { Link } from 'react-router-dom';
 
-const NavLink = ({ link, text }) => (
-  <a
-    href={link}
+const NavLink = ({ href, text }) => (
+  <Link
+    to={href}
     className="text-white p-3 border-b-2 border-gray-800 
     hover:bg-gray-700 hover:border-blue-400
     transition-colors duration-300"
   >
     {text}
-  </a>
+  </Link>
 );
 
 const Layout = ({ children }) => (
@@ -29,8 +30,8 @@ const Layout = ({ children }) => (
             </div>
           </div>
           <div className="flex flex-col sm:flex-row hidden sm:block -mx-2">
-            <NavLink href="#" text="Home" />
-            <NavLink href="#" text="About" />
+            <NavLink text="Home" href="/" />
+            <NavLink text="About" href="/about" />
           </div>
         </div>
       </nav>
