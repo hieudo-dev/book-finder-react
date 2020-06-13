@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { SearchIcon } from '../icons';
 import axios from 'axios';
+import _ from 'lodash';
 
 const BookSummary = ({ title, authors, description, thumbnail, link }) => {
   return (
     <a href={link}>
       <div
-        className="flex flex-row items-center bg-white p-2 md:py-8 my-2 md:mx-3 rounded-lg
+        className="flex flex-row items-center bg-white p-2 md:py-4 my-2 mx-2 rounded-lg
       transition-transform duration-300 ease-out transform hover:scale-105"
       >
         <img
@@ -17,12 +18,16 @@ const BookSummary = ({ title, authors, description, thumbnail, link }) => {
         />
         <div className="flex flex-col ml-2 w-full overflow-hidden">
           <div className="tracking-widest text-indigo-500 text-xs font-medium title-font overflow-hidden truncate">
-            {authors.length !== 1 ? authors.join(', ') : authors}
+            {!authors?.length ? (
+              <div className="italic">No authors</div>
+            ) : (
+              authors.join(', ')
+            )}
           </div>
           <div className="text-xs md:text-base text-gray-900 font-medium title-font mb-2 truncate">
             {title}
           </div>
-          <p className="relative h-24 overflow-hidden text-xs md:text-base">
+          <p className="relative h-24 md:h-32 overflow-hidden text-xs md:text-base">
             <span
               className="absolute"
               style={{
@@ -46,9 +51,9 @@ const BookSummary = ({ title, authors, description, thumbnail, link }) => {
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
-  const [keywords, setKeywords] = useState([]);
+  const [keywords, setKeywords] = useState('');
 
-  const handleSearch = () => {
+  const debouncedFetch = _.debounce(() => {
     axios
       .get(
         `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
@@ -63,11 +68,19 @@ const BookList = () => {
           }))
         );
       });
+  }, 100);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    debouncedFetch();
   };
 
   return (
     <section>
-      <form className="w-full sm:max-w-xl mx-auto" method="GET">
+      <form
+        className="w-full sm:max-w-xl mx-auto"
+        onSubmit={(e) => submitHandler(e)}
+      >
         <div className="relative w-full text-gray-600 focus-within:text-gray-400 ">
           <input
             type="search"
@@ -82,7 +95,6 @@ const BookList = () => {
             <button
               type="submit"
               className="p-3 focus:outline-none focus:shadow-outline"
-              onClick={() => handleSearch()}
             >
               <SearchIcon className="w-6 h-6" />
             </button>
