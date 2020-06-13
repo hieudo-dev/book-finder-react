@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { SearchIcon } from '../icons';
 import axios from 'axios';
 import _ from 'lodash';
+import PageNavigation from './pageNavigation';
 
 const BookSummary = ({ title, authors, description, thumbnail, link }) => {
   return (
@@ -52,13 +53,17 @@ const BookSummary = ({ title, authors, description, thumbnail, link }) => {
 const BookList = () => {
   const [books, setBooks] = useState([]);
   const [keywords, setKeywords] = useState('');
+  const [pagingInfo, setPagingInfo] = useState({ currentPage: 1, lastPage: 0 });
 
-  const debouncedFetch = _.debounce(() => {
+  const debouncedFetch = _.debounce((page) => {
+    const BOOKS_PER_PAGE = 10;
     axios
       .get(
         `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
           keywords
-        )}`
+        )}&maxResults=${BOOKS_PER_PAGE}&startIndex=${
+          (page - 1) * BOOKS_PER_PAGE
+        }`
       )
       .then((response) => {
         setBooks(
@@ -67,61 +72,79 @@ const BookList = () => {
             id: volume.id,
           }))
         );
+        setPagingInfo({
+          currentPage: page,
+          lastPage: Math.ceil(response.data.totalItems / BOOKS_PER_PAGE),
+        });
       });
   }, 100);
 
+  const setCurrentPage = (page) => {
+    setPagingInfo({ ...pagingInfo, currentPage: page });
+    if (keywords) debouncedFetch(page);
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
-    debouncedFetch();
+    if (keywords) debouncedFetch(1);
   };
 
   return (
-    <section>
-      <form
-        className="w-full sm:max-w-xl mx-auto"
-        onSubmit={(e) => submitHandler(e)}
-      >
-        <div className="relative w-full text-gray-600 focus-within:text-gray-400 ">
-          <input
-            type="search"
-            className="w-full py-3 text-sm text-white bg-gray-900 rounded-md pl-4 pr-10 
+    <>
+      <section>
+        <form
+          className="w-full sm:max-w-xl mx-auto"
+          onSubmit={(e) => submitHandler(e)}
+        >
+          <div className="relative w-full text-gray-600 focus-within:text-gray-400 ">
+            <input
+              type="search"
+              className="w-full py-3 text-sm text-white bg-gray-900 rounded-md pl-4 pr-10 
           focus:outline-none focus:shadow-outline focus:bg-white focus:text-gray-900
           transition-colors duration-300 hover:bg-gray-700"
-            placeholder="Search books..."
-            autoComplete="off"
-            onChange={({ target: { value } }) => setKeywords(value)}
-          />
-          <span className="absolute inset-y-0 right-0 flex items-center">
-            <button
-              type="submit"
-              className="p-3 focus:outline-none focus:shadow-outline"
-            >
-              <SearchIcon className="w-6 h-6" />
-            </button>
-          </span>
+              placeholder="Search books..."
+              autoComplete="off"
+              onChange={({ target: { value } }) => setKeywords(value)}
+            />
+            <span className="absolute inset-y-0 right-0 flex items-center">
+              <button
+                type="submit"
+                className="p-3 focus:outline-none focus:shadow-outline"
+              >
+                <SearchIcon className="w-6 h-6" />
+              </button>
+            </span>
+          </div>
+        </form>
+        <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-3 pt-12">
+          {books.length !== 0 &&
+            books.map((book) => (
+              <motion.div
+                key={book.id}
+                positionTransition
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+              >
+                <BookSummary
+                  title={book.title}
+                  authors={book.authors}
+                  description={book.description}
+                  thumbnail={book.imageLinks?.thumbnail}
+                  link={book.infoLink}
+                />
+              </motion.div>
+            ))}
         </div>
-      </form>
-      <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-3 pt-12">
-        {books.length !== 0 &&
-          books.map((book) => (
-            <motion.div
-              key={book.id}
-              positionTransition
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-            >
-              <BookSummary
-                title={book.title}
-                authors={book.authors}
-                description={book.description}
-                thumbnail={book.imageLinks?.thumbnail}
-                link={book.infoLink}
-              />
-            </motion.div>
-          ))}
-      </div>
-    </section>
+      </section>
+      {books.length !== 0 && (
+        <PageNavigation
+          currentPage={pagingInfo.currentPage}
+          lastPage={pagingInfo.lastPage}
+          onNavigate={setCurrentPage}
+        />
+      )}
+    </>
   );
 };
 
