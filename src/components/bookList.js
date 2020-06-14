@@ -116,7 +116,7 @@ const BookList = () => {
             </span>
           </div>
         </form>
-        <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-3 pt-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 justify-center gap-3 pt-12">
           {books.length !== 0 &&
             books.map((book) => (
               <motion.div
