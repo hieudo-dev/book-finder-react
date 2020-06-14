@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { MenuIcon, CloseIcon } from '../icons';
+import { MenuIcon, CloseIcon, HomeIcon, InfoIcon, GitHubIcon } from '../icons';
 import { Link } from 'react-router-dom';
 
-const NavLink = ({ href, text }) => (
+const NavLink = ({ href, children }) => (
   <Link
     to={href}
-    className="text-white p-3 sm:border-b-2 sm:border-gray-800 
+    className="text-white p-3 sm:border-b-2 sm:border-gray-900 
     hover:bg-gray-700 hover:border-blue-400
     transition-colors duration-300"
   >
-    {text}
+    <div className="flex flex-row items-center">{children}</div>
   </Link>
 );
 
@@ -20,9 +20,9 @@ const Layout = ({ children }) => {
     <div className="min-h-screen bg-gray-800">
       <header>
         <nav className="bg-gray-900 shadow-md">
-          <div className="sm:flex items-center justify-between p-1 sm:pl-8">
-            <div className="flex justify-between items-center">
-              <div className="ml-2 sm:ml-1 py-1 text-xl font-bold text-white">
+          <div className="sm:flex items-center justify-between sm:pl-8">
+            <div className="flex justify-between items-center px-2">
+              <div className="text-xl font-bold text-white ml-1 py-1">
                 <span className="cursor-default">Book Finder</span>
               </div>
               <div className="sm:hidden">
@@ -39,9 +39,30 @@ const Layout = ({ children }) => {
                 </button>
               </div>
             </div>
-            <div className={`${isOpen ? 'flex flex-col' : 'hidden'} sm:block`}>
-              <NavLink text="Home" href="/" />
-              <NavLink text="About" href="/about" />
+            <div
+              className={`${
+                isOpen ? 'flex flex-col' : 'hidden'
+              } sm:flex sm:flex-row`}
+            >
+              <a
+                href="https://github.com/hdn7/book-finder-react"
+                className="text-white p-3 sm:border-b-2 sm:border-gray-900 
+                hover:bg-gray-700 hover:border-blue-400
+                transition-colors duration-300"
+              >
+                <div className="flex flex-row items-center">
+                  <GitHubIcon className="mt-1 w-5 h-5" />
+                  <span className="ml-2 sm:hidden">GitHub Page</span>
+                </div>
+              </a>
+              <NavLink href="/">
+                <HomeIcon className="mt-1 w-5 h-5" />
+                <span className="ml-2 sm:hidden">Home</span>
+              </NavLink>
+              <NavLink href="/about">
+                <InfoIcon className="mt-1 w-5 h-5" />
+                <span className="ml-2 sm:hidden">About</span>
+              </NavLink>
             </div>
           </div>
         </nav>
