@@ -107,10 +107,7 @@ const BookList = () => {
               onChange={({ target: { value } }) => setKeywords(value)}
             />
             <span className="absolute inset-y-0 right-0 flex items-center">
-              <button
-                type="submit"
-                className="p-3 focus:outline-none focus:shadow-outline"
-              >
+              <button type="submit" className="p-3 focus:outline-none">
                 <SearchIcon className="w-6 h-6" />
               </button>
             </span>
