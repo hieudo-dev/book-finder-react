@@ -14,7 +14,7 @@ const NavLink = ({ href, text }) => (
 );
 
 const Layout = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-800">
