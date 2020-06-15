@@ -21,10 +21,7 @@ const Layout = ({ children }) => {
       <header>
         <nav className="bg-gray-900 shadow-md">
           <div className="sm:flex items-center justify-between sm:pl-4">
-            <div className="flex justify-end items-center p-2 sm:py-0">
-              <div className="absolute w-full sm:relative text-center sm:text-start text-xl font-bold text-white ml-1 py-1">
-                <span className="cursor-default">Book Finder</span>
-              </div>
+            <div className="flex items-center justify-between p-2 sm:py-0">
               <div className="mt-1 z-10 sm:hidden">
                 <button
                   type="button"
@@ -38,6 +35,10 @@ const Layout = ({ children }) => {
                   )}
                 </button>
               </div>
+              <div className="text-center text-xl font-bold text-white ml-1 py-1">
+                <span className="cursor-default">Book Finder</span>
+              </div>
+              <div className="w-6" />
             </div>
             <div
               className={`${
