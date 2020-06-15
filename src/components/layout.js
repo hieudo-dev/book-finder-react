@@ -20,12 +20,12 @@ const Layout = ({ children }) => {
     <div className="min-h-screen bg-gray-800">
       <header>
         <nav className="bg-gray-900 shadow-md">
-          <div className="sm:flex items-center justify-between sm:pl-8">
-            <div className="flex justify-between items-center px-2">
-              <div className="text-xl font-bold text-white ml-1 py-1">
+          <div className="sm:flex items-center justify-between sm:pl-4">
+            <div className="flex justify-end items-center p-2 sm:py-0">
+              <div className="absolute w-full sm:relative text-center sm:text-start text-xl font-bold text-white ml-1 py-1">
                 <span className="cursor-default">Book Finder</span>
               </div>
-              <div className="sm:hidden">
+              <div className="mt-1 z-10 sm:hidden">
                 <button
                   type="button"
                   className="focus:outline-none"
@@ -52,16 +52,16 @@ const Layout = ({ children }) => {
               >
                 <div className="flex flex-row items-center">
                   <GitHubIcon className="mt-1 w-5 h-5" />
-                  <span className="ml-2 sm:hidden">GitHub Page</span>
+                  <span className="mt-1 ml-2 sm:hidden">GitHub Page</span>
                 </div>
               </a>
               <NavLink href="/">
                 <HomeIcon className="mt-1 w-5 h-5" />
-                <span className="ml-2 sm:hidden">Home</span>
+                <span className="mt-1 ml-2 sm:hidden">Home</span>
               </NavLink>
               <NavLink href="/about">
                 <InfoIcon className="mt-1 w-5 h-5" />
-                <span className="ml-2 sm:hidden">About</span>
+                <span className="mt-1 ml-2 sm:hidden">About</span>
               </NavLink>
             </div>
           </div>
